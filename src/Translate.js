@@ -114,7 +114,7 @@
 		_current = {};
 
 		// Select the locale
-		var locale = (typeof _locale == "string") ? [_locales] : _locales;
+		var locale = (typeof _locale == "string") ? [_locale] : _locale;
 
 		// Add the locale starting at the end first
 		for (var i = locale.length - 1; i >= 0; i--)

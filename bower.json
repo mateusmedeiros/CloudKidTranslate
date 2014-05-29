@@ -1,9 +1,8 @@
 {
 	"name": "cloudkid-translate",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"homepage": "https://github.com/cloudkidstudio/CloudKidTranslate",
 	"authors": [
-		"Dave Perrett <hello@daveperrett.com>",
 		"Matt Karl <matt@cloudkid.com>"
 	],
 	"description": "A jQuery plugin for doing client-side translations in javascript.",

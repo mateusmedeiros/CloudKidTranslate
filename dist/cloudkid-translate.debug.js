@@ -15,7 +15,7 @@
         }
     }), Translate._refresh = function() {
         _current = {};
-        for (var locale = "string" == typeof _locale ? [ _locales ] : _locales, i = locale.length - 1; i >= 0; i--) {
+        for (var locale = "string" == typeof _locale ? [ _locale ] : _locale, i = locale.length - 1; i >= 0; i--) {
             var lang = locale[i];
             $.extend(_current, _dict[lang] || {});
         }
