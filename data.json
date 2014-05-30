@@ -2,7 +2,7 @@
     "project": {
         "name": "CloudKid Translate API",
         "description": "CloudKid Translate API",
-        "version": "1.0.0",
+        "version": "1.0.2",
         "logo": ""
     },
     "files": {
@@ -12,7 +12,8 @@
                 "cloudkid": 1
             },
             "classes": {
-                "Translate": 1
+                "Translate": 1,
+                "VERSION": 1
             },
             "fors": {},
             "namespaces": {}
@@ -23,13 +24,14 @@
             "name": "cloudkid",
             "submodules": {},
             "classes": {
-                "Translate": 1
+                "Translate": 1,
+                "VERSION": 1
             },
             "fors": {},
             "namespaces": {},
             "tag": "module",
             "file": "src/Translate.js",
-            "line": 6
+            "line": 13
         }
     },
     "classes": {
@@ -47,12 +49,28 @@
             "line": 6,
             "description": "Internationalization/translation object with convenient jquery plugin",
             "static": 1
+        },
+        "VERSION": {
+            "name": "VERSION",
+            "shortname": "VERSION",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "cloudkid",
+            "namespace": "",
+            "file": "src/Translate.js",
+            "line": 13,
+            "description": "The current version of the plugin",
+            "static": 1,
+            "readonly": ""
         }
     },
     "classitems": [
         {
             "file": "src/Translate.js",
-            "line": 13,
+            "line": 21,
             "description": "The full language dictionary containing all languages as keys",
             "itemtype": "property",
             "name": "_dict",
@@ -60,12 +78,12 @@
             "access": "private",
             "tagname": "",
             "static": 1,
-            "class": "Translate",
+            "class": "VERSION",
             "module": "cloudkid"
         },
         {
             "file": "src/Translate.js",
-            "line": 21,
+            "line": 29,
             "description": "The current set of translations to use",
             "itemtype": "property",
             "name": "_current",
@@ -73,12 +91,12 @@
             "access": "private",
             "tagname": "",
             "static": 1,
-            "class": "Translate",
+            "class": "VERSION",
             "module": "cloudkid"
         },
         {
             "file": "src/Translate.js",
-            "line": 29,
+            "line": 37,
             "description": "The currently selected locale",
             "itemtype": "property",
             "name": "_locale",
@@ -86,12 +104,25 @@
             "access": "private",
             "tagname": "",
             "static": 1,
-            "class": "Translate",
+            "class": "VERSION",
             "module": "cloudkid"
         },
         {
             "file": "src/Translate.js",
-            "line": 37,
+            "line": 45,
+            "description": "The fallback locale if no translation is found",
+            "itemtype": "property",
+            "name": "_fallbackLocale",
+            "type": "String",
+            "access": "private",
+            "tagname": "",
+            "static": 1,
+            "class": "VERSION",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Translate.js",
+            "line": 53,
             "description": "Reference to the slice method",
             "itemtype": "property",
             "name": "_slice",
@@ -99,35 +130,53 @@
             "access": "private",
             "tagname": "",
             "static": 1,
-            "class": "Translate",
+            "class": "VERSION",
             "module": "cloudkid"
         },
         {
             "file": "src/Translate.js",
-            "line": 45,
-            "description": "Load the full dictionary containing all translations",
+            "line": 61,
+            "description": "Load the full dictionary containing all translations, this can also be used to load\nseparate JSON files which contain the translation. Each JSON file must contain a key\nmatching the locale which to use;\n\n\t// Load using JSON\n\tTranslate.load(\"lang.json\", function(){ \n\t\t// Finished loading\n\t});\n\t\n\t// or load the object directly\n\tvar dict = {\n\t\t\"en\" : {\n\t\t\t\"title\" : \"My Site\"\n\t\t}\n\t};\n\tTranslate.load(dict);",
             "itemtype": "method",
             "name": "load",
             "static": 1,
             "params": [
                 {
                     "name": "dict",
-                    "description": "The dictionary of all files",
-                    "type": "Object"
+                    "description": "The translation dictionary or file path to the translation dictionary",
+                    "type": "Object|String"
                 },
                 {
-                    "name": "locale",
-                    "description": "The single ISO-639-1 code to use or a \n   collection of locale in order of preference (e.g. \"en_US\", \"en\", \"dev\")\n   where \"en\" then \"dev\" is the fallback if \"en_US\" doesn't exist.\n   If not locale is set, we fallback to using the language as defined\n   by the window.navigator object (e.g. \"en-US\" => [\"en_US\", \"en\"])",
-                    "type": "String|Array",
+                    "name": "callback",
+                    "description": "The methond to callback if we're loading a file",
+                    "type": "Function",
                     "optional": true
                 }
             ],
-            "class": "Translate",
+            "return": {
+                "description": "The Translate object for chaining",
+                "type": "Translate"
+            },
+            "class": "VERSION",
             "module": "cloudkid"
         },
         {
             "file": "src/Translate.js",
-            "line": 77,
+            "line": 115,
+            "description": "Remove all of the current dictionaries stored and the saved locale",
+            "itemtype": "method",
+            "name": "reset",
+            "static": 1,
+            "return": {
+                "description": "The Translate object for chaining",
+                "type": "Translate"
+            },
+            "class": "VERSION",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Translate.js",
+            "line": 131,
             "description": "Auto detect the locale based on the window navigator object",
             "itemtype": "method",
             "name": "autoDetect",
@@ -136,43 +185,56 @@
                 "description": "The new locale selected",
                 "type": "Array"
             },
-            "class": "Translate",
+            "class": "VERSION",
             "module": "cloudkid"
         },
         {
             "file": "src/Translate.js",
-            "line": 93,
+            "line": 147,
+            "description": "The optional fallback locale to use in all cases",
+            "itemtype": "property",
+            "name": "fallbackLocale",
+            "type": "String",
+            "static": 1,
+            "class": "VERSION",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Translate.js",
+            "line": 165,
             "description": "The current ISO-639-1 two-letter language locale",
             "itemtype": "property",
             "name": "locale",
             "type": "String|Array",
             "static": 1,
-            "class": "Translate",
+            "class": "VERSION",
             "module": "cloudkid"
         },
         {
             "file": "src/Translate.js",
-            "line": 111,
+            "line": 183,
             "description": "Rebuild the current dictionary of translations to use",
             "itemtype": "method",
-            "name": "_refresh",
+            "name": "refresh",
             "static": 1,
             "access": "private",
             "tagname": "",
-            "class": "Translate",
+            "class": "VERSION",
             "module": "cloudkid"
         },
         {
             "file": "src/Translate.js",
-            "line": 132,
+            "line": 213,
             "description": "Looks the given string up in the dictionary and returns the translation if\none exists. If a translation is not found, returns the original word.",
             "itemtype": "method",
-            "name": "get",
+            "name": "translateString",
             "static": 1,
+            "access": "private",
+            "tagname": "",
             "params": [
                 {
-                    "name": "str",
-                    "description": "The string to translate.",
+                    "name": "key",
+                    "description": "The translation key look-up to translate.",
                     "type": "String"
                 },
                 {
@@ -185,12 +247,41 @@
                 "description": "Translated word.",
                 "type": "String"
             },
-            "class": "Translate",
+            "class": "VERSION",
             "module": "cloudkid"
         },
         {
             "file": "src/Translate.js",
-            "line": 155,
+            "line": 246,
+            "description": "Converts a file to a localized version using the first locale. If no locale\nis set, returns the original file.",
+            "itemtype": "method",
+            "name": "translateFile",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "file",
+                    "description": "The file path",
+                    "type": "String"
+                },
+                {
+                    "name": "separator",
+                    "description": "The string to use before the locale",
+                    "type": "String",
+                    "optional": true,
+                    "optdefault": "\"_\""
+                }
+            ],
+            "return": {
+                "description": "The updated file path containing local",
+                "type": "String"
+            },
+            "class": "VERSION",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Translate.js",
+            "line": 267,
             "description": "Substitutes %s with parameters given in list. %%s is used to escape %s.",
             "itemtype": "method",
             "name": "printf",
@@ -212,13 +303,13 @@
                 "description": "Substituted string",
                 "type": "String"
             },
-            "class": "Translate",
+            "class": "VERSION",
             "module": "cloudkid"
         },
         {
             "file": "src/Translate.js",
-            "line": 181,
-            "description": "Allows you to translate a jQuery selector.\n\n\t$('h1')._t('some text')",
+            "line": 293,
+            "description": "Allows you to translate a jQuery selector. See window._t for more information.\n\n\t$('h1')._t('some text')",
             "itemtype": "method",
             "name": "$.fn._t",
             "static": 1,
@@ -239,13 +330,13 @@
                 "description": "Chained and translated element(s).",
                 "type": "Element"
             },
-            "class": "Translate",
+            "class": "VERSION",
             "module": "cloudkid"
         },
         {
             "file": "src/Translate.js",
-            "line": 197,
-            "description": "Global access to the translate method",
+            "line": 309,
+            "description": "Looks the given string up in the dictionary and returns the translation if\none exists. If a translation is not found, returns the original word.",
             "itemtype": "method",
             "name": "window._t",
             "static": 1,
@@ -265,7 +356,35 @@
                 "description": "Translated word.",
                 "type": "String"
             },
-            "class": "Translate",
+            "class": "VERSION",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Translate.js",
+            "line": 320,
+            "description": "Converts a file to a localized version using the first locale. If no locale\nis set, returns the original file.",
+            "itemtype": "method",
+            "name": "window._f",
+            "static": 1,
+            "params": [
+                {
+                    "name": "file",
+                    "description": "The file path",
+                    "type": "String"
+                },
+                {
+                    "name": "separator",
+                    "description": "The optional string to use before the locale,\n   for instance \"myfile.png\" becomes \"myfile_en-US.png\"",
+                    "type": "String",
+                    "optional": true,
+                    "optdefault": "\"_\""
+                }
+            ],
+            "return": {
+                "description": "The updated file path containing local",
+                "type": "String"
+            },
+            "class": "VERSION",
             "module": "cloudkid"
         }
     ],
