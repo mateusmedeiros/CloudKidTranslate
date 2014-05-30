@@ -1,0 +1,273 @@
+{
+    "project": {
+        "name": "CloudKid Translate API",
+        "description": "CloudKid Translate API",
+        "version": "1.0.0",
+        "logo": ""
+    },
+    "files": {
+        "src/Translate.js": {
+            "name": "src/Translate.js",
+            "modules": {
+                "cloudkid": 1
+            },
+            "classes": {
+                "Translate": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "cloudkid": {
+            "name": "cloudkid",
+            "submodules": {},
+            "classes": {
+                "Translate": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/Translate.js",
+            "line": 6
+        }
+    },
+    "classes": {
+        "Translate": {
+            "name": "Translate",
+            "shortname": "Translate",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "cloudkid",
+            "namespace": "",
+            "file": "src/Translate.js",
+            "line": 6,
+            "description": "Internationalization/translation object with convenient jquery plugin",
+            "static": 1
+        }
+    },
+    "classitems": [
+        {
+            "file": "src/Translate.js",
+            "line": 13,
+            "description": "The full language dictionary containing all languages as keys",
+            "itemtype": "property",
+            "name": "_dict",
+            "type": "Object",
+            "access": "private",
+            "tagname": "",
+            "static": 1,
+            "class": "Translate",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Translate.js",
+            "line": 21,
+            "description": "The current set of translations to use",
+            "itemtype": "property",
+            "name": "_current",
+            "type": "Object",
+            "access": "private",
+            "tagname": "",
+            "static": 1,
+            "class": "Translate",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Translate.js",
+            "line": 29,
+            "description": "The currently selected locale",
+            "itemtype": "property",
+            "name": "_locale",
+            "type": "String|Array",
+            "access": "private",
+            "tagname": "",
+            "static": 1,
+            "class": "Translate",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Translate.js",
+            "line": 37,
+            "description": "Reference to the slice method",
+            "itemtype": "property",
+            "name": "_slice",
+            "type": "Function",
+            "access": "private",
+            "tagname": "",
+            "static": 1,
+            "class": "Translate",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Translate.js",
+            "line": 45,
+            "description": "Load the full dictionary containing all translations",
+            "itemtype": "method",
+            "name": "load",
+            "static": 1,
+            "params": [
+                {
+                    "name": "dict",
+                    "description": "The dictionary of all files",
+                    "type": "Object"
+                },
+                {
+                    "name": "locale",
+                    "description": "The single ISO-639-1 code to use or a \n   collection of locale in order of preference (e.g. \"en_US\", \"en\", \"dev\")\n   where \"en\" then \"dev\" is the fallback if \"en_US\" doesn't exist.\n   If not locale is set, we fallback to using the language as defined\n   by the window.navigator object (e.g. \"en-US\" => [\"en_US\", \"en\"])",
+                    "type": "String|Array",
+                    "optional": true
+                }
+            ],
+            "class": "Translate",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Translate.js",
+            "line": 77,
+            "description": "Auto detect the locale based on the window navigator object",
+            "itemtype": "method",
+            "name": "autoDetect",
+            "static": 1,
+            "return": {
+                "description": "The new locale selected",
+                "type": "Array"
+            },
+            "class": "Translate",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Translate.js",
+            "line": 93,
+            "description": "The current ISO-639-1 two-letter language locale",
+            "itemtype": "property",
+            "name": "locale",
+            "type": "String|Array",
+            "static": 1,
+            "class": "Translate",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Translate.js",
+            "line": 111,
+            "description": "Rebuild the current dictionary of translations to use",
+            "itemtype": "method",
+            "name": "_refresh",
+            "static": 1,
+            "access": "private",
+            "tagname": "",
+            "class": "Translate",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Translate.js",
+            "line": 132,
+            "description": "Looks the given string up in the dictionary and returns the translation if\none exists. If a translation is not found, returns the original word.",
+            "itemtype": "method",
+            "name": "get",
+            "static": 1,
+            "params": [
+                {
+                    "name": "str",
+                    "description": "The string to translate.",
+                    "type": "String"
+                },
+                {
+                    "name": "params..",
+                    "description": "params for using printf() on the string.",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "Translated word.",
+                "type": "String"
+            },
+            "class": "Translate",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Translate.js",
+            "line": 155,
+            "description": "Substitutes %s with parameters given in list. %%s is used to escape %s.",
+            "itemtype": "method",
+            "name": "printf",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "str",
+                    "description": "String to perform printf on.",
+                    "type": "String"
+                },
+                {
+                    "name": "args",
+                    "description": "Array of arguments for printf.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "Substituted string",
+                "type": "String"
+            },
+            "class": "Translate",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Translate.js",
+            "line": 181,
+            "description": "Allows you to translate a jQuery selector.\n\n\t$('h1')._t('some text')",
+            "itemtype": "method",
+            "name": "$.fn._t",
+            "static": 1,
+            "params": [
+                {
+                    "name": "str",
+                    "description": "The string to translate .",
+                    "type": "String"
+                },
+                {
+                    "name": "params",
+                    "description": "Params for using printf() on the string.",
+                    "type": "Mixed",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "Chained and translated element(s).",
+                "type": "Element"
+            },
+            "class": "Translate",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Translate.js",
+            "line": 197,
+            "description": "Global access to the translate method",
+            "itemtype": "method",
+            "name": "window._t",
+            "static": 1,
+            "params": [
+                {
+                    "name": "str",
+                    "description": "The string to translate.",
+                    "type": "String"
+                },
+                {
+                    "name": "params..",
+                    "description": "params for using printf() on the string.",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "Translated word.",
+                "type": "String"
+            },
+            "class": "Translate",
+            "module": "cloudkid"
+        }
+    ],
+    "warnings": []
+}
