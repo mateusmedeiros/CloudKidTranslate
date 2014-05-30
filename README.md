@@ -22,7 +22,14 @@ var translations = {
 	    'some more text': 'another translation'
 	}
 };
-Translate.load(translations, "en");
+Translate.load(translations);
+```
+Then you must select the locale to use. You can either auto-detect based on the current navigator object in the browser, or explicitly pass the locale;
+
+```js
+Translate.autoDetect();
+// or
+Translate.locale = "en";
 ```
 
 Once you've initialized it with a dictionary, you can translate strings using the `_t()` function, for example:
@@ -48,7 +55,7 @@ var translations = {
 		"wildcard example"  : "We have been passed two values : %s and %s."
 	}
 };
-Translate.load(translations, "en");
+Translate.load(translations).autoDetect();
 ```
 
 Next, pass values in sequence after the dictionary key when you perform the translation :
@@ -73,7 +80,7 @@ var translations = {
 		"wildcard example"  : "We have been passed two values : %s and %s."
 	}
 };
-Translate.load(translations, "en");
+Translate.load(translations).autoDetect();
 
 $('#example')._t('wildcard example', 1);
 ```
