@@ -89,11 +89,10 @@
 		{
 			var onLoaded = function(data)
 			{
+				Debug.log(data);
 				Translate.load(data);
 				if (callback)
-				{
 					callback();
-				}
 			};
 			// Load the JSON
 			$.get(dict, onLoaded, "json");
@@ -230,7 +229,7 @@
 
 		if (_current.hasOwnProperty(key))
 		{
-			str = _current[key];
+			key = _current[key];
 		}
 		else
 		{

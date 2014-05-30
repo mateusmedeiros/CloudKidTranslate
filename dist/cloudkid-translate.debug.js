@@ -5,7 +5,7 @@
     Translate.load = function(dict, callback) {
         if ("string" == typeof dict) {
             var onLoaded = function(data) {
-                Translate.load(data), callback && callback();
+                Debug.log(data), Translate.load(data), callback && callback();
             };
             $.get(dict, onLoaded, "json");
         } else null !== _dict ? $.extend(_dict, dict) : _dict = dict, refresh();
@@ -43,7 +43,7 @@
     }, translateString = function(key) {
         if (!_current) throw "Must call Translate.load() before getting the translation";
         if (!_current.hasOwnProperty(key)) throw "No translation string found matching '" + key + "'";
-        return str = _current[key], args = _slice.call(arguments), args[0] = key, printf.apply(null, args);
+        return key = _current[key], args = _slice.call(arguments), args[0] = key, printf.apply(null, args);
     }, translateFile = function(file) {
         if (!_locale) return file;
         var lang = $.isArray(_locale) ? _locale[0] : _locale, index = file.lastIndexOf(".");
