@@ -1,7 +1,7 @@
 !function(window, $) {
     var Translate = {};
-    Translate.VERSION = "1.0.2", Translate._dict = null;
-    var _current = null, _locale = null, _fallbackLocale = null, _slice = Array.prototype.slice;
+    Translate.VERSION = "1.0.2";
+    var _dict = null, _current = null, _locale = null, _fallbackLocale = null, _slice = Array.prototype.slice;
     Translate.load = function(dict, callback) {
         if ("string" == typeof dict) {
             var onLoaded = function(data) {
@@ -10,6 +10,8 @@
             $.get(dict, onLoaded, "json");
         } else null !== _dict ? $.extend(_dict, dict) : _dict = dict, refresh();
         return Translate;
+    }, Translate.reset = function() {
+        return _dict = _locale = _fallbackLocale = _current = null, Translate;
     }, Translate.autoDetect = function() {
         var lang = window.navigator.userLanguage || window.navigator.language;
         return _locale = [ lang, lang.substr(0, 2) ], refresh(), _locale;

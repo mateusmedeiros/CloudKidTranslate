@@ -24,7 +24,7 @@
 	*  @private
 	*  @static
 	*/
-	Translate._dict = null;
+	var _dict = null,
 
 	/**
 	*  The current set of translations to use
@@ -32,7 +32,7 @@
 	*  @private
 	*  @static
 	*/
-	var _current = null,
+	_current = null,
 
 	/**
 	*  The currently selected locale
@@ -110,6 +110,22 @@
 			}
 			refresh();
 		}
+		return Translate;
+	};
+
+	/**
+	*  Remove all of the current dictionaries stored and the saved locale
+	*  @method reset
+	*  @static
+	*  @return {Translate} The Translate object for chaining
+	*/
+	Translate.reset = function()
+	{
+		_dict = 
+		_locale = 
+		_fallbackLocale = 
+		_current = null;
+
 		return Translate;
 	};
 
