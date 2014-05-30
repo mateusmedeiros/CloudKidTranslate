@@ -14,8 +14,8 @@
         var lang = window.navigator.userLanguage || window.navigator.language;
         return _locale = [ lang, lang.substr(0, 2) ], refresh(), _locale;
     }, Object.defineProperty(Translate, "fallbackLocale", {
-        set: function() {
-            _fallbackLocale = fallbackLocale, refresh();
+        set: function(locale) {
+            _fallbackLocale = locale, refresh();
         },
         get: function() {
             return _fallbackLocale;

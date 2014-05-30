@@ -138,7 +138,7 @@
 	{
 		set: function(locale)
 		{
-			_fallbackLocale = fallbackLocale;
+			_fallbackLocale = locale;
 			refresh();
 		},
 		get: function()
