@@ -14,13 +14,15 @@
 	*  The full language dictionary containing all languages as keys
 	*  @property {object} _dict
 	*  @private
+	*  @static
 	*/
-	var _dict = null;
+	Translate._dict = null;
 
 	/**
 	*  The current set of translations to use
 	*  @property {object} _current
 	*  @private
+	*  @static
 	*/
 	var _current = null;
 
@@ -28,6 +30,7 @@
 	*  The currently selected locale
 	*  @property {String|Array} _locale
 	*  @private
+	*  @static
 	*/
 	var _locale = null;
 
@@ -35,6 +38,7 @@
 	*  Reference to the slice method
 	*  @property {function} _slice
 	*  @private
+	*  @static
 	*/
 	var _slice = Array.prototype.slice;
 
@@ -42,8 +46,8 @@
 	*  Load the full dictionary containing all translations
 	*  @method load
 	*  @static
-	*  @property {object} dict The dictionary of all files
-	*  @property {String|Array} [locale] The single ISO-639-1 code to use or a 
+	*  @param {object} dict The dictionary of all files
+	*  @param {String|Array} [locale] The single ISO-639-1 code to use or a 
 	*     collection of locale in order of preference (e.g. "en_US", "en", "dev")
 	*     where "en" then "dev" is the fallback if "en_US" doesn't exist.
 	*     If not locale is set, we fallback to using the language as defined
@@ -73,6 +77,7 @@
 	/**
 	*  Auto detect the locale based on the window navigator object
 	*  @method autoDetect
+	*  @static
 	*  @return {Array} The new locale selected
 	*/
 	Translate.autoDetect = function()
@@ -87,7 +92,7 @@
 
 	/**
 	*  The current ISO-639-1 two-letter language locale
-	*  @property {String|Array} locale ISO-639-1 two-letter locale
+	*  @property {String|Array} locale
 	*  @static
 	*/
 	Object.defineProperty(Translate, "locale", 
@@ -127,13 +132,13 @@
 	/**
 	*  Looks the given string up in the dictionary and returns the translation if
 	*  one exists. If a translation is not found, returns the original word.
-	*  @method _
+	*  @method get
 	*  @static
 	*  @param {string} str The string to translate.
 	*  @param {object} params.. params for using printf() on the string.
 	*  @return {string} Translated word.
 	*/
-	Translate._ = function(str)
+	Translate.get = function(str)
 	{
 		if (_current && _current.hasOwnProperty(str))
 		{
@@ -149,10 +154,10 @@
 
 	/**
 	*  Substitutes %s with parameters given in list. %%s is used to escape %s.
-	*
+	*  @method printf
+	*  @private
 	*  @param {string} str String to perform printf on.
 	*  @param {string} args	Array of arguments for printf.
-	*
 	*  @return {string} Substituted string
 	*/
 	var printf = function(str, args)
@@ -179,13 +184,14 @@
 	*	$('h1')._t('some text')
 	*
 	*  @method $.fn._t
+	*  @static
 	*  @param {string} str The string to translate .
 	*  @param {mixed} [params] Params for using printf() on the string.
 	*  @return {element} Chained and translated element(s).
 	*/
 	$.fn._t = function(str, params)
 	{
-		return $(this).html(Translate._.apply(null, arguments));
+		return $(this).html(Translate.get.apply(null, arguments));
 	};
 
 	/**
@@ -196,7 +202,7 @@
 	*  @param {object} params.. params for using printf() on the string.
 	*  @return {string} Translated word.
 	*/
-	window._t = Translate._;
+	window._t = Translate.get;
 
 	// Assign to namespace
 	namespace('cloudkid').Translate = Translate;
