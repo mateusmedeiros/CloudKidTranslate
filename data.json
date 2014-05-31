@@ -348,7 +348,7 @@
             "line": 371,
             "description": "Allows you to swap an localized file path with jQuery selector. See window._f for more information.\n\n\t$('img#example')._f()",
             "itemtype": "method",
-            "name": "$.fn._t",
+            "name": "$.fn._f",
             "static": 1,
             "params": [
                 {
