@@ -37,7 +37,7 @@
                 var lang = locales[i];
                 $.extend(_current, _dict[lang] || {});
             }
-            $("[data-localize]")._t(), $("[data-localize-file")._f();
+            $("[data-localize]")._t(), $("[data-localize-file]")._f();
         }
     }, getLocales = function() {
         var locales = "string" == typeof _locale ? [ _locale ] : _locale.slice(0);

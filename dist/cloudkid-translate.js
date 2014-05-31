@@ -204,7 +204,7 @@
 
 		// Do the automatic localizations
 		$("[data-localize]")._t();
-		$("[data-localize-file")._f();
+		$("[data-localize-file]")._f();
 	};
 
 	/**
