@@ -2,7 +2,7 @@
     "project": {
         "name": "CloudKid Translate API",
         "description": "CloudKid Translate API",
-        "version": "1.0.2",
+        "version": "1.0.3",
         "logo": ""
     },
     "files": {
@@ -162,7 +162,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 115,
+            "line": 114,
             "description": "Remove all of the current dictionaries stored and the saved locale",
             "itemtype": "method",
             "name": "reset",
@@ -176,7 +176,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 131,
+            "line": 130,
             "description": "Auto detect the locale based on the window navigator object",
             "itemtype": "method",
             "name": "autoDetect",
@@ -190,7 +190,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 147,
+            "line": 146,
             "description": "The optional fallback locale to use in all cases",
             "itemtype": "property",
             "name": "fallbackLocale",
@@ -201,7 +201,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 165,
+            "line": 164,
             "description": "The current ISO-639-1 two-letter language locale",
             "itemtype": "property",
             "name": "locale",
@@ -212,7 +212,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 183,
+            "line": 182,
             "description": "Rebuild the current dictionary of translations to use",
             "itemtype": "method",
             "name": "refresh",
@@ -224,7 +224,23 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 213,
+            "line": 210,
+            "description": "Get the locales with the fallback",
+            "itemtype": "method",
+            "name": "getLocales",
+            "static": 1,
+            "access": "private",
+            "tagname": "",
+            "return": {
+                "description": "The collection of locales where the first index is the highest priority",
+                "type": "Array"
+            },
+            "class": "VERSION",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Translate.js",
+            "line": 230,
             "description": "Looks the given string up in the dictionary and returns the translation if\none exists. If a translation is not found, returns the original word.",
             "itemtype": "method",
             "name": "translateString",
@@ -252,7 +268,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 246,
+            "line": 263,
             "description": "Converts a file to a localized version using the first locale. If no locale\nis set, returns the original file.",
             "itemtype": "method",
             "name": "translateFile",
@@ -281,7 +297,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 267,
+            "line": 304,
             "description": "Substitutes %s with parameters given in list. %%s is used to escape %s.",
             "itemtype": "method",
             "name": "printf",
@@ -308,14 +324,14 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 293,
+            "line": 330,
             "description": "Allows you to translate a jQuery selector. See window._t for more information.\n\n\t$('h1')._t('some text')",
             "itemtype": "method",
             "name": "$.fn._t",
             "static": 1,
             "params": [
                 {
-                    "name": "str",
+                    "name": "key",
                     "description": "The string to translate .",
                     "type": "String"
                 },
@@ -335,7 +351,37 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 309,
+            "line": 371,
+            "description": "Allows you to swap an localized file path with jQuery selector. See window._f for more information.\n\n\t$('img#example')._f()",
+            "itemtype": "method",
+            "name": "$.fn._t",
+            "static": 1,
+            "params": [
+                {
+                    "name": "attr",
+                    "description": "The attribute to change the file for",
+                    "type": "String",
+                    "optional": true,
+                    "optdefault": "\"src\""
+                },
+                {
+                    "name": "separator",
+                    "description": "The optional string to use before the locale,\n   for instance \"myfile.png\" becomes \"myfile_en-US.png\"",
+                    "type": "String",
+                    "optional": true,
+                    "optdefault": "\"_\""
+                }
+            ],
+            "return": {
+                "description": "Chained and translated element(s).",
+                "type": "Element"
+            },
+            "class": "VERSION",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Translate.js",
+            "line": 395,
             "description": "Looks the given string up in the dictionary and returns the translation if\none exists. If a translation is not found, returns the original word.",
             "itemtype": "method",
             "name": "window._t",
@@ -361,8 +407,8 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 320,
-            "description": "Converts a file to a localized version using the first locale. If no locale\nis set, returns the original file.",
+            "line": 406,
+            "description": "Converts a file to a localized version using the locale preferences. If no locale\nis set or no valid files are found, returns the original file.",
             "itemtype": "method",
             "name": "window._f",
             "static": 1,

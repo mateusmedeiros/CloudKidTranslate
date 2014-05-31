@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="http://yui.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKid Translate API v1.0.2 API Documentation : VERSION</title>  
+	<title>CloudKid Translate API v1.0.3 API Documentation : VERSION</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 1.0.2</em>
+            <em>API Documentation for: 1.0.3</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -146,7 +146,25 @@
                             </li>
                         
                             <li class="index-item method">
+                                <a href="#method_$.fn._t">$.fn._t</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
                                 <a href="#method_autoDetect">autoDetect</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method_getLocales">getLocales</a>
 
                                 
                                     <span class="flag static">static</span>
@@ -318,7 +336,142 @@
             
                 <li class="arg">
                     
-                        <code>str</code>
+                        <code class="optional">[attr=&quot;src&quot;]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[separator=&quot;_&quot;]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Element</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_Translate.js.html#l371"><code>$.fn._t:371</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Allows you to swap an localized file path with jQuery selector. See window._f for more information.</p>
+<pre class="code prettyprint"><code>$(&#39;img#example&#39;)._f()</code></pre>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[attr=&quot;src&quot;]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The attribute to change the file for</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[separator=&quot;_&quot;]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The optional string to use before the locale,
+   for instance "myfile.png" becomes "myfile_en-US.png"</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Element</span>:
+                    
+                    <p>Chained and translated element(s).</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_$.fn._t" class="method item">
+    <h3 class="name"><code>$.fn._t</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>key</code>
                     
                 </li>
             
@@ -363,7 +516,7 @@
             
         
         
-        <a href="../files/src_Translate.js.html#l293"><code>$.fn._t:293</code></a>
+        <a href="../files/src_Translate.js.html#l330"><code>$.fn._t:330</code></a>
         
         </p>
 
@@ -387,7 +540,7 @@
             
                 <li class="param">
                     
-                        <code class="param-name">str</code>
+                        <code class="param-name">key</code>
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
                     
 
@@ -480,7 +633,7 @@
             
         
         
-        <a href="../files/src_Translate.js.html#l131"><code>autoDetect:131</code></a>
+        <a href="../files/src_Translate.js.html#l130"><code>autoDetect:130</code></a>
         
         </p>
 
@@ -507,6 +660,83 @@
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>:
                     
                     <p>The new locale selected</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getLocales" class="method item private">
+    <h3 class="name"><code>getLocales</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_Translate.js.html#l210"><code>getLocales:210</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Get the locales with the fallback</p>
+
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>:
+                    
+                    <p>The collection of locales where the first index is the highest priority</p>
 
                 
             </div>
@@ -717,7 +947,7 @@ Translate.load(dict);</code></pre>
             
         
         
-        <a href="../files/src_Translate.js.html#l267"><code>printf:267</code></a>
+        <a href="../files/src_Translate.js.html#l304"><code>printf:304</code></a>
         
         </p>
 
@@ -830,7 +1060,7 @@ Translate.load(dict);</code></pre>
             
         
         
-        <a href="../files/src_Translate.js.html#l183"><code>refresh:183</code></a>
+        <a href="../files/src_Translate.js.html#l182"><code>refresh:182</code></a>
         
         </p>
 
@@ -891,7 +1121,7 @@ Translate.load(dict);</code></pre>
             
         
         
-        <a href="../files/src_Translate.js.html#l115"><code>reset:115</code></a>
+        <a href="../files/src_Translate.js.html#l114"><code>reset:114</code></a>
         
         </p>
 
@@ -982,7 +1212,7 @@ Translate.load(dict);</code></pre>
             
         
         
-        <a href="../files/src_Translate.js.html#l246"><code>translateFile:246</code></a>
+        <a href="../files/src_Translate.js.html#l263"><code>translateFile:263</code></a>
         
         </p>
 
@@ -1117,7 +1347,7 @@ is set, returns the original file.</p>
             
         
         
-        <a href="../files/src_Translate.js.html#l213"><code>translateString:213</code></a>
+        <a href="../files/src_Translate.js.html#l230"><code>translateString:230</code></a>
         
         </p>
 
@@ -1249,7 +1479,7 @@ one exists. If a translation is not found, returns the original word.</p>
             
         
         
-        <a href="../files/src_Translate.js.html#l320"><code>window._f:320</code></a>
+        <a href="../files/src_Translate.js.html#l406"><code>window._f:406</code></a>
         
         </p>
 
@@ -1260,8 +1490,8 @@ one exists. If a translation is not found, returns the original word.</p>
     </div>
 
     <div class="description">
-        <p>Converts a file to a localized version using the first locale. If no locale
-is set, returns the original file.</p>
+        <p>Converts a file to a localized version using the locale preferences. If no locale
+is set or no valid files are found, returns the original file.</p>
 
     </div>
 
@@ -1383,7 +1613,7 @@ is set, returns the original file.</p>
             
         
         
-        <a href="../files/src_Translate.js.html#l309"><code>window._t:309</code></a>
+        <a href="../files/src_Translate.js.html#l395"><code>window._t:395</code></a>
         
         </p>
 
@@ -1739,7 +1969,7 @@ one exists. If a translation is not found, returns the original word.</p>
             
         
         
-        <a href="../files/src_Translate.js.html#l147"><code>fallbackLocale:147</code></a>
+        <a href="../files/src_Translate.js.html#l146"><code>fallbackLocale:146</code></a>
         
         </p>
 
@@ -1786,7 +2016,7 @@ one exists. If a translation is not found, returns the original word.</p>
             
         
         
-        <a href="../files/src_Translate.js.html#l165"><code>locale:165</code></a>
+        <a href="../files/src_Translate.js.html#l164"><code>locale:164</code></a>
         
         </p>
 
