@@ -1,7 +1,7 @@
 /**
 *  @module cloudkid
 */
-(function(window, $, undefined){
+(function(window, $){
 
 	/**
 	*  Internationalization/translation object with convenient jquery plugin
@@ -89,7 +89,6 @@
 		{
 			var onLoaded = function(data)
 			{
-				Debug.log(data);
 				Translate.load(data);
 				if (callback)
 					callback();
@@ -194,20 +193,38 @@
 		_current = {};
 
 		// Select the locale
-		var locale = (typeof _locale == "string") ? [_locale] : _locale;
-
-		// Add the fallback
-		if (_fallbackLocale)
-		{
-			locale.push(_fallbackLocale);
-		}
+		var locales = getLocales();
 
 		// Add the locale starting at the end first
-		for (var i = locale.length - 1; i >= 0; i--)
+		for (var i = locales.length - 1; i >= 0; i--)
 		{
-			var lang = locale[i];
+			var lang = locales[i];
 			$.extend(_current, _dict[lang] || {});
 		}
+
+		// Do the automatic localizations
+		$("[data-localize]")._t();
+		$("[data-localize-file")._f();
+	};
+
+	/**
+	*  Get the locales with the fallback
+	*  @method getLocales
+	*  @static
+	*  @private
+	*  @return {Array} The collection of locales where the first index is the highest priority
+	*/
+	var getLocales = function()
+	{
+		// Select the locale
+		var locales = (typeof _locale == "string") ? [_locale] : _locale.slice(0);
+
+		// Add the fallback
+		if (_fallbackLocale && locales.indexOf(_fallbackLocale) == -1)
+		{
+			locales.push(_fallbackLocale);
+		}
+		return locales;
 	};
 
 	/**
@@ -257,11 +274,31 @@
 		// Bail out
 		if (!_locale) return file;
 
-		var lang = $.isArray(_locale) ? _locale[0] : _locale;
-		var index = file.lastIndexOf(".");
+		separator = separator || "_";
+		
+		var locales = getLocales(),
+			index = file.lastIndexOf("."),
+			http = new XMLHttpRequest(),
+			url,
+			lang;
 
-		// Inject the language into the file
-		return file.substring(0, index) + "_" + lang + file.substring(index, file.length);
+		// Add the locale starting at the end first
+		for (var i = 0, len = locales.length; i < len; i++)
+		{
+			lang = locales[i];
+			url = file.substring(0, index) + separator + lang + file.substring(index, file.length);
+			
+			http.open('HEAD', url, false);
+			http.send();
+
+			// If the file exists, return
+			if (http.status != 404)
+			{
+				return url;
+			}
+		}
+		// No language or fallback, then return the original file
+		return file; 
 	};
 
 	/**
@@ -297,13 +334,62 @@
 	*
 	*  @method $.fn._t
 	*  @static
-	*  @param {string} str The string to translate .
+	*  @param {string} key The string to translate .
 	*  @param {mixed} [params] Params for using printf() on the string.
 	*  @return {element} Chained and translated element(s).
 	*/
-	$.fn._t = function(str, params)
+	$.fn._t = function()
 	{
-		return $(this).html(translateString.apply(null, arguments));
+		// Capture the arguments
+		var args = arguments;
+		
+		return this.each(function(){
+
+			var self = $(this);
+			var localArgs = _slice.call(args, 0);
+
+			if (localArgs.length === 0)
+			{
+				var key = self.data('localize');
+				var values = self.data('localize-values');
+
+				if (!key)
+				{
+					throw "Must either pass in a key to localize or use the data-localize attribute";
+				}
+				Array.prototype.push.call(localArgs, key);
+
+				if (values)
+				{
+					localArgs = localArgs.concat(values.split(","));
+				}
+			}
+			return self.html(translateString.apply(null, localArgs));
+		});		
+	};
+
+	/**
+	*  Allows you to swap an localized file path with jQuery selector. See window._f for more information.
+	*
+	*	$('img#example')._f()
+	*
+	*  @method $.fn._t
+	*  @static
+	*  @param {string} [attr="src"] The attribute to change the file for
+	*  @param {string} [separator="_"] The optional string to use before the locale,
+	*     for instance "myfile.png" becomes "myfile_en-US.png"
+	*  @return {element} Chained and translated element(s).
+	*/
+	$.fn._f = function(attr, separator)
+	{
+		var self = $(this);
+		
+		if (self.length === 0) return;
+
+		var file = self.data('localize-file') || self.attr('src');
+		self.data('localize-file', file);
+
+		return self.attr(attr || "src", translateFile(file, separator));
 	};
 
 	/**
@@ -318,8 +404,8 @@
 	window._t = translateString;
 
 	/**
-	*  Converts a file to a localized version using the first locale. If no locale
-	*  is set, returns the original file.
+	*  Converts a file to a localized version using the locale preferences. If no locale
+	*  is set or no valid files are found, returns the original file.
 	*  @method window._f
 	*  @static
 	*  @param {string} file The file path

@@ -9,9 +9,9 @@
 		<attribute name="compress" default="" />
 		<attribute name="output" />
 		<sequential>
-			<fail unless="source.order" message="version needs to be specified in the build.properties as the output directory" />
-			<fail unless="source.dir" message="The folder that contains all the source" />
-			<fail unless="compressor" message="Path to the uglify-js program" />
+			<fail unless="source.order" message="source.output needs to be specified in the build.properties as the output directory" />
+			<fail unless="source.dir" message="sourd.dir need to be defined in the build.properites as the folder that contains all the source" />
+			<fail unless="uglifyjs" message="uglifyjs need to be defined in the build.properites as the path to the uglify-js program" />
 			<jshint list="${source.order}" dir="${source.dir}" />
 			<echo message="+---------------------------------+" />
 			<echo message="| Building the Library JavaScript |" />
@@ -23,7 +23,7 @@
 				</filterchain>
 			</resourcelist>
 		    <pathconvert property="allFiles" refid="files" pathsep=" " />
-			<exec executable="${compressor}" failonerror="true">
+			<exec executable="${uglifyjs}" failonerror="true">
 				<arg line="${allFiles}" />
 				<arg line="-o @{output}" />
 				<arg line="@{options}" />
@@ -38,7 +38,7 @@
 		<attribute name="list" />
 		<attribute name="dir" />
 		<sequential>
-			<fail unless="js.validator" message="js.validator needs to be specified in the build.properties as the JSHint or similar lint app" />
+			<fail unless="jshint" message="jshint needs to be specified in the build.properties as the JSHint or similar lint app" />
 			<echo message="+--------------------------+" />
 			<echo message="| Validating the JS Source |" />
 			<echo message="+--------------------------+" />
@@ -49,7 +49,7 @@
 					<trim />
 				</filterchain>
 			</loadfile>
-			<exec executable="${js.validator}">
+			<exec executable="${jshint}">
 	            <arg line="${files}" />
 	        </exec>
 		</sequential>
@@ -92,6 +92,14 @@
 		</sequential>
 	</macrodef>
 	
+	<target name="import-example-libs" description="Copy the files specified in dependencies.txt to examples project">
+		<fail unless="libs" message="libs needs to be specified in build.properties as the bower libs to install" />
+		<exec executable="${bower}" failonerror="true">
+			<arg line="install" />
+			<arg line="${libs}" />
+		</exec>
+	</target>
+
 	<macrodef name="docs-config">
 		<attribute name="template" default="${docs.config}" />
 		<attribute name="file" default="temp.json" />

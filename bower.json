@@ -1,12 +1,12 @@
 {
 	"name": "cloudkid-translate",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"homepage": "https://github.com/cloudkidstudio/CloudKidTranslate",
 	"authors": [
 		"Matt Karl <matt@cloudkid.com>"
 	],
 	"description": "A jQuery plugin for doing client-side translations in javascript.",
-	"main": "jquery.i18n.js",
+	"main": "dist/cloudkid-translate.min.js",
 	"keywords": [
 		"jquery",
 		"i18n",
@@ -19,9 +19,10 @@
 	"license": "MIT",
 	"ignore": [
 		"**/.*",
-		"node_modules",
-		"bower_components",
-		"test",
-		"tests"
+		"example",
+		"src",
+		"docs",
+		"build",
+		"build.xml"
 	]
 }

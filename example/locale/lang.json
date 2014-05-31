@@ -1,0 +1,14 @@
+{
+	"en" : {
+		"greeting" : "Welcome",
+		"intro" : "My name is %s, I'm %s years old"
+	},
+	"fr" : {
+		"greeting" : "Accueil",
+		"intro" : "Je m'appelle %s, je suis âgé de %s ans"
+	},
+	"es" : {
+		"greeting" : "Bienvenido",
+		"intro" : "Me llamo %s, tengo %s años de edad"
+	}
+}
