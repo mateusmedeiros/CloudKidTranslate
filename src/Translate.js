@@ -373,7 +373,7 @@
 	*
 	*	$('img#example')._f()
 	*
-	*  @method $.fn._t
+	*  @method $.fn._f
 	*  @static
 	*  @param {string} [attr="src"] The attribute to change the file for
 	*  @param {string} [separator="_"] The optional string to use before the locale,
