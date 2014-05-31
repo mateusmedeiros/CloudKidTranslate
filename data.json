@@ -12,8 +12,7 @@
                 "cloudkid": 1
             },
             "classes": {
-                "Translate": 1,
-                "VERSION": 1
+                "Translate": 1
             },
             "fors": {},
             "namespaces": {}
@@ -24,14 +23,13 @@
             "name": "cloudkid",
             "submodules": {},
             "classes": {
-                "Translate": 1,
-                "VERSION": 1
+                "Translate": 1
             },
             "fors": {},
             "namespaces": {},
             "tag": "module",
             "file": "src/Translate.js",
-            "line": 13
+            "line": 6
         }
     },
     "classes": {
@@ -49,25 +47,21 @@
             "line": 6,
             "description": "Internationalization/translation object with convenient jquery plugin",
             "static": 1
-        },
-        "VERSION": {
-            "name": "VERSION",
-            "shortname": "VERSION",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "cloudkid",
-            "namespace": "",
-            "file": "src/Translate.js",
-            "line": 13,
-            "description": "The current version of the plugin",
-            "static": 1,
-            "readonly": ""
         }
     },
     "classitems": [
+        {
+            "file": "src/Translate.js",
+            "line": 13,
+            "description": "The current version of the plugin",
+            "itemtype": "property",
+            "name": "VERSION",
+            "type": "String",
+            "static": 1,
+            "readonly": "",
+            "class": "Translate",
+            "module": "cloudkid"
+        },
         {
             "file": "src/Translate.js",
             "line": 21,
@@ -78,7 +72,7 @@
             "access": "private",
             "tagname": "",
             "static": 1,
-            "class": "VERSION",
+            "class": "Translate",
             "module": "cloudkid"
         },
         {
@@ -91,7 +85,7 @@
             "access": "private",
             "tagname": "",
             "static": 1,
-            "class": "VERSION",
+            "class": "Translate",
             "module": "cloudkid"
         },
         {
@@ -104,7 +98,7 @@
             "access": "private",
             "tagname": "",
             "static": 1,
-            "class": "VERSION",
+            "class": "Translate",
             "module": "cloudkid"
         },
         {
@@ -117,7 +111,7 @@
             "access": "private",
             "tagname": "",
             "static": 1,
-            "class": "VERSION",
+            "class": "Translate",
             "module": "cloudkid"
         },
         {
@@ -130,7 +124,7 @@
             "access": "private",
             "tagname": "",
             "static": 1,
-            "class": "VERSION",
+            "class": "Translate",
             "module": "cloudkid"
         },
         {
@@ -157,7 +151,7 @@
                 "description": "The Translate object for chaining",
                 "type": "Translate"
             },
-            "class": "VERSION",
+            "class": "Translate",
             "module": "cloudkid"
         },
         {
@@ -171,7 +165,7 @@
                 "description": "The Translate object for chaining",
                 "type": "Translate"
             },
-            "class": "VERSION",
+            "class": "Translate",
             "module": "cloudkid"
         },
         {
@@ -185,7 +179,7 @@
                 "description": "The new locale selected",
                 "type": "Array"
             },
-            "class": "VERSION",
+            "class": "Translate",
             "module": "cloudkid"
         },
         {
@@ -196,7 +190,7 @@
             "name": "fallbackLocale",
             "type": "String",
             "static": 1,
-            "class": "VERSION",
+            "class": "Translate",
             "module": "cloudkid"
         },
         {
@@ -207,7 +201,7 @@
             "name": "locale",
             "type": "String|Array",
             "static": 1,
-            "class": "VERSION",
+            "class": "Translate",
             "module": "cloudkid"
         },
         {
@@ -219,7 +213,7 @@
             "static": 1,
             "access": "private",
             "tagname": "",
-            "class": "VERSION",
+            "class": "Translate",
             "module": "cloudkid"
         },
         {
@@ -235,7 +229,7 @@
                 "description": "The collection of locales where the first index is the highest priority",
                 "type": "Array"
             },
-            "class": "VERSION",
+            "class": "Translate",
             "module": "cloudkid"
         },
         {
@@ -263,7 +257,7 @@
                 "description": "Translated word.",
                 "type": "String"
             },
-            "class": "VERSION",
+            "class": "Translate",
             "module": "cloudkid"
         },
         {
@@ -292,7 +286,7 @@
                 "description": "The updated file path containing local",
                 "type": "String"
             },
-            "class": "VERSION",
+            "class": "Translate",
             "module": "cloudkid"
         },
         {
@@ -319,7 +313,7 @@
                 "description": "Substituted string",
                 "type": "String"
             },
-            "class": "VERSION",
+            "class": "Translate",
             "module": "cloudkid"
         },
         {
@@ -346,7 +340,7 @@
                 "description": "Chained and translated element(s).",
                 "type": "Element"
             },
-            "class": "VERSION",
+            "class": "Translate",
             "module": "cloudkid"
         },
         {
@@ -376,7 +370,7 @@
                 "description": "Chained and translated element(s).",
                 "type": "Element"
             },
-            "class": "VERSION",
+            "class": "Translate",
             "module": "cloudkid"
         },
         {
@@ -402,7 +396,7 @@
                 "description": "Translated word.",
                 "type": "String"
             },
-            "class": "VERSION",
+            "class": "Translate",
             "module": "cloudkid"
         },
         {
@@ -430,7 +424,7 @@
                 "description": "The updated file path containing local",
                 "type": "String"
             },
-            "class": "VERSION",
+            "class": "Translate",
             "module": "cloudkid"
         }
     ],
