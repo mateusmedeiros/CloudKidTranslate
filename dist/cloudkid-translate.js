@@ -12,7 +12,7 @@
 
 	/**
 	*  The current version of the plugin
-	*  @class VERSION
+	*  @property {string} VERSION
 	*  @static
 	*  @readOnly
 	*/
