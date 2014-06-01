@@ -2,7 +2,7 @@
     "project": {
         "name": "CloudKid Translate API",
         "description": "CloudKid Translate API",
-        "version": "1.0.3",
+        "version": "1.0.4",
         "logo": ""
     },
     "files": {
@@ -157,6 +157,18 @@
         {
             "file": "src/Translate.js",
             "line": 114,
+            "description": "The separator between the file name and the locale\nif using the filename translation. For instance, \"myfile.png\" becomes \"myfile_en-US.png\"\njoining \"myfile\" with the separator, locale then file extension.",
+            "itemtype": "property",
+            "name": "fileSeparator",
+            "type": "String",
+            "static": 1,
+            "default": "\"_\"",
+            "class": "Translate",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Translate.js",
+            "line": 124,
             "description": "Remove all of the current dictionaries stored and the saved locale",
             "itemtype": "method",
             "name": "reset",
@@ -170,21 +182,30 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 130,
+            "line": 140,
             "description": "Auto detect the locale based on the window navigator object",
             "itemtype": "method",
             "name": "autoDetect",
             "static": 1,
+            "params": [
+                {
+                    "name": "useCountryLocale",
+                    "description": "If we should use the country locale (e.g., \"en-US\")\n       as well as the language.",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "true"
+                }
+            ],
             "return": {
-                "description": "The new locale selected",
-                "type": "Array"
+                "description": "The new locale selected, returns a string if `useCountryLocale` is false.",
+                "type": "Array|String"
             },
             "class": "Translate",
             "module": "cloudkid"
         },
         {
             "file": "src/Translate.js",
-            "line": 146,
+            "line": 158,
             "description": "The optional fallback locale to use in all cases",
             "itemtype": "property",
             "name": "fallbackLocale",
@@ -195,7 +216,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 164,
+            "line": 176,
             "description": "The current ISO-639-1 two-letter language locale",
             "itemtype": "property",
             "name": "locale",
@@ -206,7 +227,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 182,
+            "line": 194,
             "description": "Rebuild the current dictionary of translations to use",
             "itemtype": "method",
             "name": "refresh",
@@ -218,7 +239,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 210,
+            "line": 222,
             "description": "Get the locales with the fallback",
             "itemtype": "method",
             "name": "getLocales",
@@ -234,7 +255,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 230,
+            "line": 242,
             "description": "Looks the given string up in the dictionary and returns the translation if\none exists. If a translation is not found, returns the original word.",
             "itemtype": "method",
             "name": "translateString",
@@ -262,7 +283,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 263,
+            "line": 275,
             "description": "Converts a file to a localized version using the first locale. If no locale\nis set, returns the original file.",
             "itemtype": "method",
             "name": "translateFile",
@@ -273,13 +294,6 @@
                     "name": "file",
                     "description": "The file path",
                     "type": "String"
-                },
-                {
-                    "name": "separator",
-                    "description": "The string to use before the locale",
-                    "type": "String",
-                    "optional": true,
-                    "optdefault": "\"_\""
                 }
             ],
             "return": {
@@ -291,7 +305,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 304,
+            "line": 313,
             "description": "Substitutes %s with parameters given in list. %%s is used to escape %s.",
             "itemtype": "method",
             "name": "printf",
@@ -318,7 +332,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 330,
+            "line": 339,
             "description": "Allows you to translate a jQuery selector. See window._t for more information.\n\n\t$('h1')._t('some text')",
             "itemtype": "method",
             "name": "$.fn._t",
@@ -345,7 +359,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 371,
+            "line": 380,
             "description": "Allows you to swap an localized file path with jQuery selector. See window._f for more information.\n\n\t$('img#example')._f()",
             "itemtype": "method",
             "name": "$.fn._f",
@@ -357,13 +371,6 @@
                     "type": "String",
                     "optional": true,
                     "optdefault": "\"src\""
-                },
-                {
-                    "name": "separator",
-                    "description": "The optional string to use before the locale,\n   for instance \"myfile.png\" becomes \"myfile_en-US.png\"",
-                    "type": "String",
-                    "optional": true,
-                    "optdefault": "\"_\""
                 }
             ],
             "return": {
@@ -375,7 +382,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 395,
+            "line": 402,
             "description": "Looks the given string up in the dictionary and returns the translation if\none exists. If a translation is not found, returns the original word.",
             "itemtype": "method",
             "name": "window._t",
@@ -387,9 +394,10 @@
                     "type": "String"
                 },
                 {
-                    "name": "params..",
+                    "name": "params*",
                     "description": "params for using printf() on the string.",
-                    "type": "Object"
+                    "type": "Mixed",
+                    "optional": true
                 }
             ],
             "return": {
@@ -401,7 +409,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 406,
+            "line": 413,
             "description": "Converts a file to a localized version using the locale preferences. If no locale\nis set or no valid files are found, returns the original file.",
             "itemtype": "method",
             "name": "window._f",
@@ -411,13 +419,6 @@
                     "name": "file",
                     "description": "The file path",
                     "type": "String"
-                },
-                {
-                    "name": "separator",
-                    "description": "The optional string to use before the locale,\n   for instance \"myfile.png\" becomes \"myfile_en-US.png\"",
-                    "type": "String",
-                    "optional": true,
-                    "optdefault": "\"_\""
                 }
             ],
             "return": {

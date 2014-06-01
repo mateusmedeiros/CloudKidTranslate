@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="http://yui.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKid Translate API v1.0.3 API Documentation : src/Translate.js</title>  
+	<title>CloudKid Translate API v1.0.4 API Documentation : src/Translate.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 1.0.3</em>
+            <em>API Documentation for: 1.0.4</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -90,7 +90,7 @@
 /**
 *  @module cloudkid
 */
-(function(window, $){
+(function(window, $, undefined){
 
 	/**
 	*  Internationalization/translation object with convenient jquery plugin
@@ -201,6 +201,16 @@
 	};
 
 	/**
+	*  The separator between the file name and the locale
+	*  if using the filename translation. For instance, &quot;myfile.png&quot; becomes &quot;myfile_en-US.png&quot;
+	*  joining &quot;myfile&quot; with the separator, locale then file extension.
+	*  @property {String} fileSeparator
+	*  @static
+	*  @default &quot;_&quot;
+	*/
+	Translate.fileSeparator = &quot;_&quot;;
+
+	/**
 	*  Remove all of the current dictionaries stored and the saved locale
 	*  @method reset
 	*  @static
@@ -220,15 +230,17 @@
 	*  Auto detect the locale based on the window navigator object
 	*  @method autoDetect
 	*  @static
-	*  @return {Array} The new locale selected
+	*  @param {Boolean} [useCountryLocale=true] If we should use the country locale (e.g., &quot;en-US&quot;)
+	*         as well as the language. 
+	*  @return {Array|String} The new locale selected, returns a string if &#x60;useCountryLocale&#x60; is false.
 	*/
-	Translate.autoDetect = function()
+	Translate.autoDetect = function(useCountryLocale)
 	{
 		var lang = (window.navigator.userLanguage || window.navigator.language);
-
-		_locale = [lang, lang.substr(0,2)];
+		useCountryLocale = (useCountryLocale === undefined) ? true : useCountryLocale;
+		var langOnly = lang.substr(0,2);
+		_locale = useCountryLocale ? [lang, langOnly] : langOnly;
 		refresh();
-		
 		return _locale;
 	};
 
@@ -355,15 +367,12 @@
 	*  @method translateFile
 	*  @private
 	*  @param {string} file The file path
-	*  @param {string} [separator=&quot;_&quot;] The string to use before the locale
 	*  @return {string} The updated file path containing local
 	*/
-	var translateFile = function(file, separator)
+	var translateFile = function(file)
 	{
 		// Bail out
 		if (!_locale) return file;
-
-		separator = separator || &quot;_&quot;;
 		
 		var locales = getLocales(),
 			index = file.lastIndexOf(&quot;.&quot;),
@@ -375,7 +384,7 @@
 		for (var i = 0, len = locales.length; i &lt; len; i++)
 		{
 			lang = locales[i];
-			url = file.substring(0, index) + separator + lang + file.substring(index, file.length);
+			url = file.substring(0, index) + Translate.fileSeparator + lang + file.substring(index, file.length);
 			
 			http.open(&#x27;HEAD&#x27;, url, false);
 			http.send();
@@ -465,11 +474,9 @@
 	*  @method $.fn._f
 	*  @static
 	*  @param {string} [attr=&quot;src&quot;] The attribute to change the file for
-	*  @param {string} [separator=&quot;_&quot;] The optional string to use before the locale,
-	*     for instance &quot;myfile.png&quot; becomes &quot;myfile_en-US.png&quot;
 	*  @return {element} Chained and translated element(s).
 	*/
-	$.fn._f = function(attr, separator)
+	$.fn._f = function(attr)
 	{
 		var self = $(this);
 		
@@ -478,7 +485,7 @@
 		var file = self.data(&#x27;localize-file&#x27;) || self.attr(&#x27;src&#x27;);
 		self.data(&#x27;localize-file&#x27;, file);
 
-		return self.attr(attr || &quot;src&quot;, translateFile(file, separator));
+		return self.attr(attr || &quot;src&quot;, translateFile(file));
 	};
 
 	/**
@@ -487,7 +494,7 @@
 	*  @method window._t
 	*  @static
 	*  @param {string} str The string to translate.
-	*  @param {object} params.. params for using printf() on the string.
+	*  @param {mixed} [params*] params for using printf() on the string.
 	*  @return {string} Translated word.
 	*/
 	window._t = translateString;
@@ -497,9 +504,7 @@
 	*  is set or no valid files are found, returns the original file.
 	*  @method window._f
 	*  @static
-	*  @param {string} file The file path
-	*  @param {string} [separator=&quot;_&quot;] The optional string to use before the locale,
-	*     for instance &quot;myfile.png&quot; becomes &quot;myfile_en-US.png&quot;
+	*  @param {string} file The file path     
 	*  @return {string} The updated file path containing local
 	*/
 	window._f = translateFile;
