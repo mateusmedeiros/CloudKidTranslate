@@ -1,7 +1,7 @@
 /**
 *  @module cloudkid
 */
-(function(window, $){
+(function(window, $, undefined){
 
 	/**
 	*  Internationalization/translation object with convenient jquery plugin
@@ -16,7 +16,7 @@
 	*  @static
 	*  @readOnly
 	*/
-	Translate.VERSION = "1.0.3";
+	Translate.VERSION = "1.0.4";
 
 	/**
 	*  The full language dictionary containing all languages as keys
@@ -112,6 +112,16 @@
 	};
 
 	/**
+	*  The separator between the file name and the locale
+	*  if using the filename translation. For instance, "myfile.png" becomes "myfile_en-US.png"
+	*  joining "myfile" with the separator, locale then file extension.
+	*  @property {String} fileSeparator
+	*  @static
+	*  @default "_"
+	*/
+	Translate.fileSeparator = "_";
+
+	/**
 	*  Remove all of the current dictionaries stored and the saved locale
 	*  @method reset
 	*  @static
@@ -131,15 +141,17 @@
 	*  Auto detect the locale based on the window navigator object
 	*  @method autoDetect
 	*  @static
-	*  @return {Array} The new locale selected
+	*  @param {Boolean} [useCountryLocale=true] If we should use the country locale (e.g., "en-US")
+	*         as well as the language. 
+	*  @return {Array|String} The new locale selected, returns a string if `useCountryLocale` is false.
 	*/
-	Translate.autoDetect = function()
+	Translate.autoDetect = function(useCountryLocale)
 	{
 		var lang = (window.navigator.userLanguage || window.navigator.language);
-
-		_locale = [lang, lang.substr(0,2)];
+		useCountryLocale = (useCountryLocale === undefined) ? true : useCountryLocale;
+		var langOnly = lang.substr(0,2);
+		_locale = useCountryLocale ? [lang, langOnly] : langOnly;
 		refresh();
-		
 		return _locale;
 	};
 
@@ -266,15 +278,12 @@
 	*  @method translateFile
 	*  @private
 	*  @param {string} file The file path
-	*  @param {string} [separator="_"] The string to use before the locale
 	*  @return {string} The updated file path containing local
 	*/
-	var translateFile = function(file, separator)
+	var translateFile = function(file)
 	{
 		// Bail out
 		if (!_locale) return file;
-
-		separator = separator || "_";
 		
 		var locales = getLocales(),
 			index = file.lastIndexOf("."),
@@ -286,7 +295,7 @@
 		for (var i = 0, len = locales.length; i < len; i++)
 		{
 			lang = locales[i];
-			url = file.substring(0, index) + separator + lang + file.substring(index, file.length);
+			url = file.substring(0, index) + Translate.fileSeparator + lang + file.substring(index, file.length);
 			
 			http.open('HEAD', url, false);
 			http.send();
@@ -376,11 +385,9 @@
 	*  @method $.fn._f
 	*  @static
 	*  @param {string} [attr="src"] The attribute to change the file for
-	*  @param {string} [separator="_"] The optional string to use before the locale,
-	*     for instance "myfile.png" becomes "myfile_en-US.png"
 	*  @return {element} Chained and translated element(s).
 	*/
-	$.fn._f = function(attr, separator)
+	$.fn._f = function(attr)
 	{
 		var self = $(this);
 		
@@ -389,7 +396,7 @@
 		var file = self.data('localize-file') || self.attr('src');
 		self.data('localize-file', file);
 
-		return self.attr(attr || "src", translateFile(file, separator));
+		return self.attr(attr || "src", translateFile(file));
 	};
 
 	/**
@@ -398,7 +405,7 @@
 	*  @method window._t
 	*  @static
 	*  @param {string} str The string to translate.
-	*  @param {object} params.. params for using printf() on the string.
+	*  @param {mixed} [params*] params for using printf() on the string.
 	*  @return {string} Translated word.
 	*/
 	window._t = translateString;
@@ -408,9 +415,7 @@
 	*  is set or no valid files are found, returns the original file.
 	*  @method window._f
 	*  @static
-	*  @param {string} file The file path
-	*  @param {string} [separator="_"] The optional string to use before the locale,
-	*     for instance "myfile.png" becomes "myfile_en-US.png"
+	*  @param {string} file The file path     
 	*  @return {string} The updated file path containing local
 	*/
 	window._f = translateFile;

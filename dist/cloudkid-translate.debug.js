@@ -1,6 +1,6 @@
-!function(window, $) {
+!function(window, $, undefined) {
     var Translate = {};
-    Translate.VERSION = "1.0.3";
+    Translate.VERSION = "1.0.4";
     var _dict = null, _current = null, _locale = null, _fallbackLocale = null, _slice = Array.prototype.slice;
     Translate.load = function(dict, callback) {
         if ("string" == typeof dict) {
@@ -10,11 +10,13 @@
             $.get(dict, onLoaded, "json");
         } else null !== _dict ? $.extend(_dict, dict) : _dict = dict, refresh();
         return Translate;
-    }, Translate.reset = function() {
+    }, Translate.fileSeparator = "_", Translate.reset = function() {
         return _dict = _locale = _fallbackLocale = _current = null, Translate;
-    }, Translate.autoDetect = function() {
+    }, Translate.autoDetect = function(useCountryLocale) {
         var lang = window.navigator.userLanguage || window.navigator.language;
-        return _locale = [ lang, lang.substr(0, 2) ], refresh(), _locale;
+        useCountryLocale = useCountryLocale === undefined ? !0 : useCountryLocale;
+        var langOnly = lang.substr(0, 2);
+        return _locale = useCountryLocale ? [ lang, langOnly ] : langOnly, refresh(), _locale;
     }, Object.defineProperty(Translate, "fallbackLocale", {
         set: function(locale) {
             _fallbackLocale = locale, refresh();
@@ -47,11 +49,10 @@
         if (!_current) throw "Must call Translate.load() before getting the translation";
         if (!_current.hasOwnProperty(key)) throw "No translation string found matching '" + key + "'";
         return key = _current[key], args = _slice.call(arguments), args[0] = key, printf.apply(null, args);
-    }, translateFile = function(file, separator) {
+    }, translateFile = function(file) {
         if (!_locale) return file;
-        separator = separator || "_";
         for (var url, lang, locales = getLocales(), index = file.lastIndexOf("."), http = new XMLHttpRequest(), i = 0, len = locales.length; len > i; i++) if (lang = locales[i], 
-        url = file.substring(0, index) + separator + lang + file.substring(index, file.length), 
+        url = file.substring(0, index) + Translate.fileSeparator + lang + file.substring(index, file.length), 
         http.open("HEAD", url, !1), http.send(), 404 != http.status) return url;
         return file;
     }, printf = function(str, args) {
@@ -71,11 +72,11 @@
             }
             return self.html(translateString.apply(null, localArgs));
         });
-    }, $.fn._f = function(attr, separator) {
+    }, $.fn._f = function(attr) {
         var self = $(this);
         if (0 !== self.length) {
             var file = self.data("localize-file") || self.attr("src");
-            return self.data("localize-file", file), self.attr(attr || "src", translateFile(file, separator));
+            return self.data("localize-file", file), self.attr(attr || "src", translateFile(file));
         }
     }, window._t = translateString, window._f = translateFile, namespace("cloudkid").Translate = Translate;
 }(window, jQuery);
