@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+
+		<!--
+		This example uses separate files for each locale and lazy loads them.
+		This would be a value setup for very large translation files.
+		-->
+
+		<title>CloudKid Translate Automatic Example</title>
+		<!-- To import the needed libraries run the ant task "import-example-libs" in build.xml -->
+		<script src="libs/jquery/dist/jquery.min.js"></script>
+		<script src="libs/cloudkid-namespace/namespace.js"></script>
+		<script src="libs/cloudkid-debug/dist/cloudkid-debug.min.js"></script>
+
+		<!-- Include the script -->
+		<script src="../dist/cloudkid-translate.js"></script>
+	</head>
+	<body>
+		<h1 id="greeting" data-localize="greeting"></h1>
+		<h2 id="intro" data-localize="intro" data-localize-values="John,12"></h2>
+		<div><img id="logo" data-localize-file="images/logo.png" /></div>
+
+		<button data-lang="en">English</button> | 
+			<button data-lang="fr">Fran&ccedil;ais</button> | 
+				<button data-lang="es">Espa&ntilde;ol</button>
+
+		<script>
+
+			// Import the library, just to not have to type cloudkid all the time
+			var Translate = cloudkid.Translate;
+
+			// Dynamically change the locale
+			$("button").click(function(){
+				var lang = $(this).data('lang');
+				Translate.load('locale/'+lang+'/lang.json', lang);
+			});
+
+			// Load english
+			$("button[data-lang='en']").click();
+
+		</script>
+	</body>
+</html>

@@ -31,10 +31,18 @@ Translate.load(translations);
 The translations can also be loaded with a path to externalized JSON file.
  
 ```js
-Translate.load("lang.json", function(){
+Translate.load("locale/lang.json", function(){
 	// Optional callback when load finished!
 });
+```
 
+Or loading a specifc language JSON:
+
+```js
+Translate.load("locale/en/lang.json", "en", function(){
+	// Optional callback when load finished!
+	// The locale is automatically set here to "en"
+});
 ```
 
 Then you must select the locale to use which can be done one of two ways. Either auto-detect method which identifies the locale based on the current browser's `navigator` object, or explicitly setting the locale.

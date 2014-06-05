@@ -16,7 +16,7 @@
 	*  @static
 	*  @readOnly
 	*/
-	Translate.VERSION = "1.0.4";
+	Translate.VERSION = "1.0.5";
 
 	/**
 	*  The full language dictionary containing all languages as keys
@@ -60,36 +60,59 @@
 
 	/**
 	*  Load the full dictionary containing all translations, this can also be used to load
-	*  separate JSON files which contain the translation. Each JSON file must contain a key
-	*  matching the locale which to use;
+	*  separate JSON files which contain the translation. Each JSON file can contain keys
+	*  matching the locale which to use, or a single locale:
 	*
-	*	// Load using JSON
+	*	// Load external json for all locales
 	*	Translate.load("lang.json", function(){ 
 	*		// Finished loading
 	*	});
 	*	
-	*	// or load the object directly
+	*	// Or load all locales directly
 	*	var dict = {
 	*		"en" : {
 	*			"title" : "My Site"
 	*		}
 	*	};
 	*	Translate.load(dict);
+	*	
+	*	// Or loading a single local externally
+	*	Translate.load("locale/en/lang.json", "en", function(){
+	*		// Finished loading
+	*	});
+	*	
+	*	// Or load a single local directly
+	*	var dict = {
+	*		"title" : "My Site"
+	*	};
+	*	Translate.load(dict, "en");
 	*
 	*  @method load
 	*  @static
 	*  @param {object|String} dict The translation dictionary or file path to the translation dictionary
+	*  @param {String|Function} [langOrCallback] Either the language code or the function callback for file loading
 	*  @param {function} [callback] The methond to callback if we're loading a file
 	*  @return {Translate} The Translate object for chaining
 	*/
-	Translate.load = function(dict, callback)
+	Translate.load = function(dict, langOrCallback, callback)
 	{
+		var lang = null;
+
+		if (typeof langOrCallback == "function")
+		{
+			callback = langOrCallback;
+		}
+		else if (typeof langOrCallback == "string")
+		{
+			lang = langOrCallback;
+		}
+
 		// Load the file
 		if (typeof dict == "string")
 		{
 			var onLoaded = function(data)
 			{
-				Translate.load(data);
+				Translate.load(data, lang);
 				if (callback)
 					callback();
 			};
@@ -98,13 +121,18 @@
 		}
 		else
 		{
-			if (_dict !== null)
+			_dict = _dict || {};
+
+			// Set the specific language
+			if (lang)
+			{
+				_dict[lang] = dict;
+				_locale = lang;
+			}
+			// merge with the existing
+			else
 			{
 				$.extend(_dict, dict);
-			} 
-			else 
-			{
-				_dict = dict;
 			}
 			refresh();
 		}

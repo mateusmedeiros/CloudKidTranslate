@@ -1,14 +1,17 @@
 !function(window, $, undefined) {
     var Translate = {};
-    Translate.VERSION = "1.0.4";
+    Translate.VERSION = "1.0.5";
     var _dict = null, _current = null, _locale = null, _fallbackLocale = null, _slice = Array.prototype.slice;
-    Translate.load = function(dict, callback) {
-        if ("string" == typeof dict) {
+    Translate.load = function(dict, langOrCallback, callback) {
+        var lang = null;
+        if ("function" == typeof langOrCallback ? callback = langOrCallback : "string" == typeof langOrCallback && (lang = langOrCallback), 
+        "string" == typeof dict) {
             var onLoaded = function(data) {
-                Translate.load(data), callback && callback();
+                Translate.load(data, lang), callback && callback();
             };
             $.get(dict, onLoaded, "json");
-        } else null !== _dict ? $.extend(_dict, dict) : _dict = dict, refresh();
+        } else _dict = _dict || {}, lang ? (_dict[lang] = dict, _locale = lang) : $.extend(_dict, dict), 
+        refresh();
         return Translate;
     }, Translate.fileSeparator = "_", Translate.reset = function() {
         return _dict = _locale = _fallbackLocale = _current = null, Translate;
