@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="http://yui.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKid Translate API v1.0.4 API Documentation : Translate</title>  
+	<title>CloudKid Translate API v1.0.5 API Documentation : Translate</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 1.0.4</em>
+            <em>API Documentation for: 1.0.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -391,7 +391,7 @@
             
         
         
-        <a href="../files/src_Translate.js.html#l380"><code>$.fn._f:380</code></a>
+        <a href="../files/src_Translate.js.html#l408"><code>$.fn._f:408</code></a>
         
         </p>
 
@@ -508,7 +508,7 @@
             
         
         
-        <a href="../files/src_Translate.js.html#l339"><code>$.fn._t:339</code></a>
+        <a href="../files/src_Translate.js.html#l367"><code>$.fn._t:367</code></a>
         
         </p>
 
@@ -635,7 +635,7 @@
             
         
         
-        <a href="../files/src_Translate.js.html#l140"><code>autoDetect:140</code></a>
+        <a href="../files/src_Translate.js.html#l168"><code>autoDetect:168</code></a>
         
         </p>
 
@@ -738,7 +738,7 @@
             
         
         
-        <a href="../files/src_Translate.js.html#l222"><code>getLocales:222</code></a>
+        <a href="../files/src_Translate.js.html#l250"><code>getLocales:250</code></a>
         
         </p>
 
@@ -785,6 +785,12 @@
                 <li class="arg">
                     
                         <code>dict</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[langOrCallback]</code>
                     
                 </li>
             
@@ -841,20 +847,31 @@
 
     <div class="description">
         <p>Load the full dictionary containing all translations, this can also be used to load
-separate JSON files which contain the translation. Each JSON file must contain a key
-matching the locale which to use;</p>
-<pre class="code prettyprint"><code>// Load using JSON
+separate JSON files which contain the translation. Each JSON file can contain keys
+matching the locale which to use, or a single locale:</p>
+<pre class="code prettyprint"><code>// Load external json for all locales
 Translate.load("lang.json", function(){ 
     // Finished loading
 });
 
-// or load the object directly
+// Or load all locales directly
 var dict = {
     "en" : {
         "title" : "My Site"
     }
 };
-Translate.load(dict);</code></pre>
+Translate.load(dict);
+
+// Or loading a single local externally
+Translate.load("locale/en/lang.json", "en", function(){
+    // Finished loading
+});
+
+// Or load a single local directly
+var dict = {
+    "title" : "My Site"
+};
+Translate.load(dict, "en");</code></pre>
 
     </div>
 
@@ -874,6 +891,23 @@ Translate.load(dict);</code></pre>
 
                     <div class="param-description">
                         <p>The translation dictionary or file path to the translation dictionary</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[langOrCallback]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Either the language code or the function callback for file loading</p>
 
                     </div>
 
@@ -975,7 +1009,7 @@ Translate.load(dict);</code></pre>
             
         
         
-        <a href="../files/src_Translate.js.html#l313"><code>printf:313</code></a>
+        <a href="../files/src_Translate.js.html#l341"><code>printf:341</code></a>
         
         </p>
 
@@ -1088,7 +1122,7 @@ Translate.load(dict);</code></pre>
             
         
         
-        <a href="../files/src_Translate.js.html#l194"><code>refresh:194</code></a>
+        <a href="../files/src_Translate.js.html#l222"><code>refresh:222</code></a>
         
         </p>
 
@@ -1149,7 +1183,7 @@ Translate.load(dict);</code></pre>
             
         
         
-        <a href="../files/src_Translate.js.html#l124"><code>reset:124</code></a>
+        <a href="../files/src_Translate.js.html#l152"><code>reset:152</code></a>
         
         </p>
 
@@ -1234,7 +1268,7 @@ Translate.load(dict);</code></pre>
             
         
         
-        <a href="../files/src_Translate.js.html#l275"><code>translateFile:275</code></a>
+        <a href="../files/src_Translate.js.html#l303"><code>translateFile:303</code></a>
         
         </p>
 
@@ -1352,7 +1386,7 @@ is set, returns the original file.</p>
             
         
         
-        <a href="../files/src_Translate.js.html#l242"><code>translateString:242</code></a>
+        <a href="../files/src_Translate.js.html#l270"><code>translateString:270</code></a>
         
         </p>
 
@@ -1478,7 +1512,7 @@ one exists. If a translation is not found, returns the original word.</p>
             
         
         
-        <a href="../files/src_Translate.js.html#l413"><code>window._f:413</code></a>
+        <a href="../files/src_Translate.js.html#l441"><code>window._f:441</code></a>
         
         </p>
 
@@ -1594,7 +1628,7 @@ is set or no valid files are found, returns the original file.</p>
             
         
         
-        <a href="../files/src_Translate.js.html#l402"><code>window._t:402</code></a>
+        <a href="../files/src_Translate.js.html#l430"><code>window._t:430</code></a>
         
         </p>
 
@@ -1951,7 +1985,7 @@ one exists. If a translation is not found, returns the original word.</p>
             
         
         
-        <a href="../files/src_Translate.js.html#l158"><code>fallbackLocale:158</code></a>
+        <a href="../files/src_Translate.js.html#l186"><code>fallbackLocale:186</code></a>
         
         </p>
 
@@ -1998,7 +2032,7 @@ one exists. If a translation is not found, returns the original word.</p>
             
         
         
-        <a href="../files/src_Translate.js.html#l114"><code>fileSeparator:114</code></a>
+        <a href="../files/src_Translate.js.html#l142"><code>fileSeparator:142</code></a>
         
         </p>
 
@@ -2049,7 +2083,7 @@ joining "myfile" with the separator, locale then file extension.</p>
             
         
         
-        <a href="../files/src_Translate.js.html#l176"><code>locale:176</code></a>
+        <a href="../files/src_Translate.js.html#l204"><code>locale:204</code></a>
         
         </p>
 

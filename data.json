@@ -2,7 +2,7 @@
     "project": {
         "name": "CloudKid Translate API",
         "description": "CloudKid Translate API",
-        "version": "1.0.4",
+        "version": "1.0.5",
         "logo": ""
     },
     "files": {
@@ -130,7 +130,7 @@
         {
             "file": "src/Translate.js",
             "line": 61,
-            "description": "Load the full dictionary containing all translations, this can also be used to load\nseparate JSON files which contain the translation. Each JSON file must contain a key\nmatching the locale which to use;\n\n\t// Load using JSON\n\tTranslate.load(\"lang.json\", function(){ \n\t\t// Finished loading\n\t});\n\t\n\t// or load the object directly\n\tvar dict = {\n\t\t\"en\" : {\n\t\t\t\"title\" : \"My Site\"\n\t\t}\n\t};\n\tTranslate.load(dict);",
+            "description": "Load the full dictionary containing all translations, this can also be used to load\nseparate JSON files which contain the translation. Each JSON file can contain keys\nmatching the locale which to use, or a single locale:\n\n\t// Load external json for all locales\n\tTranslate.load(\"lang.json\", function(){ \n\t\t// Finished loading\n\t});\n\t\n\t// Or load all locales directly\n\tvar dict = {\n\t\t\"en\" : {\n\t\t\t\"title\" : \"My Site\"\n\t\t}\n\t};\n\tTranslate.load(dict);\n\t\n\t// Or loading a single local externally\n\tTranslate.load(\"locale/en/lang.json\", \"en\", function(){\n\t\t// Finished loading\n\t});\n\t\n\t// Or load a single local directly\n\tvar dict = {\n\t\t\"title\" : \"My Site\"\n\t};\n\tTranslate.load(dict, \"en\");",
             "itemtype": "method",
             "name": "load",
             "static": 1,
@@ -139,6 +139,12 @@
                     "name": "dict",
                     "description": "The translation dictionary or file path to the translation dictionary",
                     "type": "Object|String"
+                },
+                {
+                    "name": "langOrCallback",
+                    "description": "Either the language code or the function callback for file loading",
+                    "type": "String|Function",
+                    "optional": true
                 },
                 {
                     "name": "callback",
@@ -156,7 +162,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 114,
+            "line": 142,
             "description": "The separator between the file name and the locale\nif using the filename translation. For instance, \"myfile.png\" becomes \"myfile_en-US.png\"\njoining \"myfile\" with the separator, locale then file extension.",
             "itemtype": "property",
             "name": "fileSeparator",
@@ -168,7 +174,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 124,
+            "line": 152,
             "description": "Remove all of the current dictionaries stored and the saved locale",
             "itemtype": "method",
             "name": "reset",
@@ -182,7 +188,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 140,
+            "line": 168,
             "description": "Auto detect the locale based on the window navigator object",
             "itemtype": "method",
             "name": "autoDetect",
@@ -205,7 +211,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 158,
+            "line": 186,
             "description": "The optional fallback locale to use in all cases",
             "itemtype": "property",
             "name": "fallbackLocale",
@@ -216,7 +222,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 176,
+            "line": 204,
             "description": "The current ISO-639-1 two-letter language locale",
             "itemtype": "property",
             "name": "locale",
@@ -227,7 +233,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 194,
+            "line": 222,
             "description": "Rebuild the current dictionary of translations to use",
             "itemtype": "method",
             "name": "refresh",
@@ -239,7 +245,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 222,
+            "line": 250,
             "description": "Get the locales with the fallback",
             "itemtype": "method",
             "name": "getLocales",
@@ -255,7 +261,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 242,
+            "line": 270,
             "description": "Looks the given string up in the dictionary and returns the translation if\none exists. If a translation is not found, returns the original word.",
             "itemtype": "method",
             "name": "translateString",
@@ -283,7 +289,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 275,
+            "line": 303,
             "description": "Converts a file to a localized version using the first locale. If no locale\nis set, returns the original file.",
             "itemtype": "method",
             "name": "translateFile",
@@ -305,7 +311,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 313,
+            "line": 341,
             "description": "Substitutes %s with parameters given in list. %%s is used to escape %s.",
             "itemtype": "method",
             "name": "printf",
@@ -332,7 +338,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 339,
+            "line": 367,
             "description": "Allows you to translate a jQuery selector. See window._t for more information.\n\n\t$('h1')._t('some text')",
             "itemtype": "method",
             "name": "$.fn._t",
@@ -359,7 +365,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 380,
+            "line": 408,
             "description": "Allows you to swap an localized file path with jQuery selector. See window._f for more information.\n\n\t$('img#example')._f()",
             "itemtype": "method",
             "name": "$.fn._f",
@@ -382,7 +388,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 402,
+            "line": 430,
             "description": "Looks the given string up in the dictionary and returns the translation if\none exists. If a translation is not found, returns the original word.",
             "itemtype": "method",
             "name": "window._t",
@@ -409,7 +415,7 @@
         },
         {
             "file": "src/Translate.js",
-            "line": 413,
+            "line": 441,
             "description": "Converts a file to a localized version using the locale preferences. If no locale\nis set or no valid files are found, returns the original file.",
             "itemtype": "method",
             "name": "window._f",

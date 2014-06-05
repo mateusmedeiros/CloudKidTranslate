@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="http://yui.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKid Translate API v1.0.4 API Documentation : src/Translate.js</title>  
+	<title>CloudKid Translate API v1.0.5 API Documentation : src/Translate.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 1.0.4</em>
+            <em>API Documentation for: 1.0.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -149,36 +149,59 @@
 
 	/**
 	*  Load the full dictionary containing all translations, this can also be used to load
-	*  separate JSON files which contain the translation. Each JSON file must contain a key
-	*  matching the locale which to use;
+	*  separate JSON files which contain the translation. Each JSON file can contain keys
+	*  matching the locale which to use, or a single locale:
 	*
-	*	// Load using JSON
+	*	// Load external json for all locales
 	*	Translate.load(&quot;lang.json&quot;, function(){ 
 	*		// Finished loading
 	*	});
 	*	
-	*	// or load the object directly
+	*	// Or load all locales directly
 	*	var dict = {
 	*		&quot;en&quot; : {
 	*			&quot;title&quot; : &quot;My Site&quot;
 	*		}
 	*	};
 	*	Translate.load(dict);
+	*	
+	*	// Or loading a single local externally
+	*	Translate.load(&quot;locale/en/lang.json&quot;, &quot;en&quot;, function(){
+	*		// Finished loading
+	*	});
+	*	
+	*	// Or load a single local directly
+	*	var dict = {
+	*		&quot;title&quot; : &quot;My Site&quot;
+	*	};
+	*	Translate.load(dict, &quot;en&quot;);
 	*
 	*  @method load
 	*  @static
 	*  @param {object|String} dict The translation dictionary or file path to the translation dictionary
+	*  @param {String|Function} [langOrCallback] Either the language code or the function callback for file loading
 	*  @param {function} [callback] The methond to callback if we&#x27;re loading a file
 	*  @return {Translate} The Translate object for chaining
 	*/
-	Translate.load = function(dict, callback)
+	Translate.load = function(dict, langOrCallback, callback)
 	{
+		var lang = null;
+
+		if (typeof langOrCallback == &quot;function&quot;)
+		{
+			callback = langOrCallback;
+		}
+		else if (typeof langOrCallback == &quot;string&quot;)
+		{
+			lang = langOrCallback;
+		}
+
 		// Load the file
 		if (typeof dict == &quot;string&quot;)
 		{
 			var onLoaded = function(data)
 			{
-				Translate.load(data);
+				Translate.load(data, lang);
 				if (callback)
 					callback();
 			};
@@ -187,13 +210,18 @@
 		}
 		else
 		{
-			if (_dict !== null)
+			_dict = _dict || {};
+
+			// Set the specific language
+			if (lang)
+			{
+				_dict[lang] = dict;
+				_locale = lang;
+			}
+			// merge with the existing
+			else
 			{
 				$.extend(_dict, dict);
-			} 
-			else 
-			{
-				_dict = dict;
 			}
 			refresh();
 		}
