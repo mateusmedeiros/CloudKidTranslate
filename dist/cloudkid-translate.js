@@ -284,7 +284,22 @@
 			throw 'Must call Translate.load() before getting the translation';
 		}
 
-		if (_current.hasOwnProperty(key))
+		if(typeof key == "string" && key.indexOf('.') != -1) 
+		{
+			var obj = $.extend({}, _current);
+			var arr = key.split(".");
+			while(arr.length && (obj = obj[arr.shift()]));
+			
+			if(obj != undefined) 
+			{
+				key = obj;
+			} 
+			else
+			{
+				throw "No translation string found matching '" + key + "'";
+			}
+		} 
+		else if (_current.hasOwnProperty(key) && typeof key == "string")
 		{
 			key = _current[key];
 		}
