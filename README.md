@@ -1,3 +1,5 @@
+##### This is a fork of [CloudKidTranslate](https://github.com/CloudKidStudio/CloudKidTranslate) by Matt Karl made just for a slight quickfix I needed, which was basically accessing nested keys in the provided json with dot notation (data-localize="nested.key") #####
+
 #About 
 
 _Translate_ is an API for doing client-side translations in javascript. It is a fork of [jquery-i18n](https://github.com/recurser/jquery-i18n) by Dave Perrett, and is licensed under the [MIT license](http://www.opensource.org/licenses/mit-license.php).
